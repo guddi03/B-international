@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Customer Messaging API</title>
+</head>
+<body>
+  <h1>Customer Messaging API</h1>
+  <form>
+    <input type="text" id="message" />
+    <button id="send">Send</button>
+  </form>
+  <script>
+    const form = document.querySelector('form');
+    const messageInput = document.querySelector('#message');
+    const sendButton = document.querySelector('#send');
+
+    sendButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      const message = messageInput.value;
+      fetch('http://localhost:3000/api/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: message, customerName: 'Customer' })
+      })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error(error));
+    });
+  </script>
+</body>
+</html>
